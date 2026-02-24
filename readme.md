@@ -116,7 +116,7 @@ dotnet sln list
 # Summary
 
 # Usage
-1. Clone the repository with `git clone https://github.com/yosang/csharp-unit-testing`
+1. Clone the repository with `git clone https://github.com/yosang/csharp-unit-test-frameworks`
 
 ## Using the CLI
 1. Use `dotnet test ` to test both NUnit and xUnit.
