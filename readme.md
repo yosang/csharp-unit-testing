@@ -1,6 +1,7 @@
 # Project
 This is a simple practice-project that showcases Unit Testing in C# with two frameworks, `NUnit` and `XUnit`.
 
+## Solution File
 We are configuring this project with a solution file.
 - It acts as a container or organizer for one or more related .NET projects.
     - To create a solution file we use the command `dotnet new sln -n MyUnitTestApp`.
@@ -8,25 +9,38 @@ We are configuring this project with a solution file.
     - To remove projects we use the command `dotnet sln remove <xxxx.csproj>`.
     - To list projects we use the command `dotnet sln list`
 
-## Sequence of commands for setup:
-```bash
-# Create Solution
-dotnet new sln -n MyUnitTestApp # Creates a solution for this project
+## C# Class Library
+The code we are testing here is created through a classlib with `dotnet new classlib -n Main -o src/`.
 
-# C# Class Library
+A classlib is just reusable code in a single assembly file which can be used across multiple applications.
+- It compiles into a .dll file, and not an .exe so it cant run on its own.
+- it doesnt have a Main() method and is ment to be used by other assemblies
+
+### Typically used for:
+- Shared business logic.
+- Data models.
+- Utility / helper classes.
+- Common shared code that can be pulled into a testing framework on its own for **Unit Testing**.
+
+## Sequence of commands used for setup:
+```bash
+# Creates a .sln file to bring everything together as one project
+dotnet new sln -n MyUnitTestApp
+
+# Creates a C# class library which we are going to use in both testing frameworks
 dotnet new classlib -n Main -o src/
 
-# NUnit
-dotnet new nunit -n Tests.NUnit -o tests/NUnit # Creates the project for NUnit tests
+# Creates a NUnit project using the nunit template
+dotnet new nunit -n Tests.NUnit -o tests/NUnit
 cd tests/NUnit # We have to be inside the folder when adding a reference
-dotnet add reference ../../src/Main.csproj # Adds the src/Main project reference
+dotnet add reference ../../src/Main.csproj # Adds a reference to our classlib project so we can use it in tests.
 
-# NUnit
-dotnet new xunit -n Tests.xUnit -o tests/xUnit # Creates the project for xUnit tests
+# Creates a xUnit project using the xUnit template
+dotnet new xunit -n Tests.xUnit -o tests/xUnit
 cd tests/xUnit
-dotnet add reference ../../src/Main.csproj # Adds the src/Main project reference
+dotnet add reference ../../src/Main.csproj
 
-# Add everything to Solution
+# Add everything to thee solution
 dotnet sln add src/Main.csproj 
 dotnet sln add tests/NUnit/Tests.NUnit.csproj 
 dotnet sln add tests/xUnit/Tests.xUnit.csproj 
