@@ -1,11 +1,12 @@
 # Project
 This is a simple practice-project that showcases Unit Testing in C# with two frameworks, `NUnit` and `XUnit`.
 
-We are configuring this project with a dotnet `sln` template.
-- It acts as a container or organizer for one or more related .NET projects.'
-    - To create a sln project we use the command `dotnet new sln -n MyApp`.
+We are configuring this project with a solution file.
+- It acts as a container or organizer for one or more related .NET projects.
+    - To create a solution file we use the command `dotnet new sln -n MyUnitTestApp`.
     - To add projects we use the command `dotnet sln add <xxxx.csproj>`.
-    - To list projects wen use the command `dotnet sln list`
+    - To remove projects we use the command `dotnet sln remove <xxxx.csproj>`.
+    - To list projects we use the command `dotnet sln list`
 
 ## Sequence of commands for setup:
 ```bash
@@ -32,13 +33,7 @@ dotnet sln add tests/xUnit/Tests.xUnit.csproj
 
 # To see whats currently on the solution
 dotnet sln list
-
-# To remove one from the solution while testing another simply swap them from the solution list and so on...
-dotnet sln remove tests/NUnit/Tests.NUnit.csproj 
-dotnet sln add tests/xUnit/Tests.xUnit.csproj 
 ```
-
-Use `dotnet test` to test either framework.
 
 # NUnit syntax
 - `[SetUp]` - Setup Attribute allows a method to run first before the other `[Test]` methods.
@@ -108,12 +103,18 @@ Use `dotnet test` to test either framework.
 
 # Usage
 1. Clone the repository with `git clone https://github.com/yosang/csharp-unit-testing`
-2. To switch between testing frameworks, you have to `remove` and `add` each individual to the project solution.
-    - Use `dotnet sln list` to list the current project.
-    - For example, to test the xUnit framework use:
-        - `dotnet sln remove tests/xUnit/Tests.NUnit.csproj` to remove NUnit from the solution.
-        - `dotnet sln add tests/xUnit/Tests.xUnit.csproj` to add xUnit from the solution.
-3. Test the application with `dotnet test`.
+
+## Using the CLI
+1. Use `dotnet test ` to test both NUnit and xUnit.
+2. Use `dotnet test tests/NUnit` to test only the NUnit framework.
+3. Use `dotnet test tests/xUnit` to test only the xUnit framework.
+
+## Using Test Explorer in VSCode
+Both NUnit and xUnit frameworks should be accessible from the Test Explorer in VSCode, this requires the `C# Dev Kit` extension installed.
+
+![alt text](image.png)
+
+
 
 # Author
 [Yosmel Chiang](https://github.com/yosang)

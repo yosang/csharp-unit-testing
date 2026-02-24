@@ -1,5 +1,7 @@
 using Main;
 
+namespace Tests.xUnit;
+
 public class CalculatorTests
 {
     // With xUnit we dont need a [Setup], so we can use an automatic property

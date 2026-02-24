@@ -1,5 +1,7 @@
 using Main;
 
+namespace Tests.NUnit;
+
 public class CalculatorTests
 {
     private Calculator _calc; // property we will be using for this test
