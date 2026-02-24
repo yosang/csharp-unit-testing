@@ -1,16 +1,15 @@
 using Main;
 
-namespace Tests.NUnit;
-
 public class CalculatorTests
 {
     private Calculator _calc; // property we will be using for this test
 
-    // Setup Attribute allows this method to run first before other the [Test] methods.
+    // [Setup] Attribute allows this method to run first before other the [Test] methods.
+    // This is the same as creating a new instance inside each Test codeblock before running the test
     [SetUp]
-    public void Before() => _calc = new Calculator();
+    public void BeforeEachTest() => _calc = new Calculator();
 
-    // Test defines this method as a method that contains test code
+    // [Test] Attribute defines this method as a method that contains test code
     // It is common to name the method as what we expect it to do.
     [Test]
     public void Add_ReturnsSum()
@@ -20,12 +19,13 @@ public class CalculatorTests
         // Arrange
         int param1 = 3;
         int param2 = 7;
+        int expected = 10;
 
         // Act
         int result = _calc.Add(param1, param2);
 
         // Assert
-        Assert.That(result, Is.EqualTo(10));
+        Assert.That(result, Is.EqualTo(expected));
     }
 
     [Test]
@@ -43,8 +43,8 @@ public class CalculatorTests
     // We can use TestCase, which allows use provide argumentes to the test method
     // We can provide multiple TestCAse
     [TestCase(2, true)]
-    [TestCase(2, true)]
-    [TestCase(2, true)]
+    [TestCase(7, false)]
+    [TestCase(-4, true)]
     public void IsEven_Works(int number, bool expected)
     {
         Assert.That(_calc.IsEven(number), Is.EqualTo(expected));

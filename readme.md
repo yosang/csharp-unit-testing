@@ -41,6 +41,79 @@ dotnet sln add tests/xUnit/Tests.xUnit.csproj
 Use `dotnet test` to test either framework.
 
 # NUnit syntax
-- `[SetUp]` - Setup Attribute allows a method to run first before other the [Test] methods.
+- `[SetUp]` - Setup Attribute allows a method to run first before the other `[Test]` methods.
+    ```c#
+    [SetUp]
+    public void Before() => _calc = new Calculator();
+    ```
 - `[Test]` - Flags a method as testable code, this method will likely have `Assert` calls.
+    ```c#
+    [Test]
+    public void Add_ReturnsSum()
+    {
+        // Arrange
+        int param1 = 3;
+        int param2 = 7;
+        int expected = 10;
+
+        // Act
+        int result = _calc.Add(param1, param2);
+
+        // Assert
+        Assert.That(result, Is.EqualTo(expected));
+    }
+    ```
 - `[TestCase(a, b)]` - Used to create parameterized tests, allowing a single method to run with multiple set of inputs.
+    ```c#
+    [TestCase(2, true)]
+    [TestCase(7, false)]
+    [TestCase(-4, true)]
+    public void IsEven_Works(int number, bool expected)
+    {
+        Assert.That(_calc.IsEven(number), Is.EqualTo(expected));
+    }
+    ```
+
+# XUnit syntax
+- `[Fact]` - A `[Fact]` attribute is used to declare a parameterless method as an individual test to be executed by the test runner.
+    ```c#
+    [Fact]
+    public void Add_ReturnsSum()
+    {
+        // Arrange
+        int param1 = 3;
+        int param2 = 7;
+        int expected = 10;
+
+        // Act
+        int result = Calc.Add(param1, param2);
+
+        // Assert
+        Assert.Equal(expected, result);
+    }
+    ```
+- `[Theory]` - A `[Theory]` attribute is similar to a `[Fact]` but with the difference that it can accept parameters
+- `[InlineData]` - Used with `[Theory]` and allows the test runnet to run this method multiple times with different sets of input parameters.
+    ```c#
+    [Theory]
+    [InlineData(2, true)]
+    [InlineData(7, false)]
+    [InlineData(-4, true)]
+    public void IsEven_Works(int num, bool expected)
+    {
+        Assert.Equal(expected, Calc.IsEven(num));
+    }
+    ```
+# Summary
+
+# Usage
+1. Clone the repository with `git clone https://github.com/yosang/csharp-unit-testing`
+2. To switch between testing frameworks, you have to `remove` and `add` each individual to the project solution.
+    - Use `dotnet sln list` to list the current project.
+    - For example, to test the xUnit framework use:
+        - `dotnet sln remove tests/xUnit/Tests.NUnit.csproj` to remove NUnit from the solution.
+        - `dotnet sln add tests/xUnit/Tests.xUnit.csproj` to add xUnit from the solution.
+3. Test the application with `dotnet test`.
+
+# Author
+[Yosmel Chiang](https://github.com/yosang)
